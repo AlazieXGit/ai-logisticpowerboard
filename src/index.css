@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 100% 8%;
+    --foreground: 84 100% 50%;
+
+    --card: 220 100% 12%;
+    --card-foreground: 84 100% 50%;
+
+    --popover: 220 100% 12%;
+    --popover-foreground: 84 100% 50%;
+
+    --primary: 84 100% 50%;
+    --primary-foreground: 0 0% 0%;
+
+    --secondary: 220 100% 15%;
+    --secondary-foreground: 84 100% 50%;
+
+    --muted: 220 100% 15%;
+    --muted-foreground: 84 50% 40%;
+
+    --accent: 84 100% 50%;
+    --accent-foreground: 0 0% 0%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 100% 20%;
+    --input: 220 100% 20%;
+    --ring: 84 100% 50%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 220 100% 10%;
+    --sidebar-foreground: 84 100% 50%;
+    --sidebar-primary: 84 100% 50%;
+    --sidebar-primary-foreground: 0 0% 0%;
+    --sidebar-accent: 220 100% 15%;
+    --sidebar-accent-foreground: 84 100% 50%;
+    --sidebar-border: 220 100% 20%;
+    --sidebar-ring: 84 100% 50%;
+  }
+
+  .dark {
+    --background: 220 100% 8%;
+    --foreground: 84 100% 50%;
+
+    --card: 220 100% 12%;
+    --card-foreground: 84 100% 50%;
+
+    --popover: 220 100% 12%;
+    --popover-foreground: 84 100% 50%;
+
+    --primary: 84 100% 50%;
+    --primary-foreground: 0 0% 0%;
+
+    --secondary: 220 100% 15%;
+    --secondary-foreground: 84 100% 50%;
+
+    --muted: 220 100% 15%;
+    --muted-foreground: 84 50% 40%;
+
+    --accent: 84 100% 50%;
+    --accent-foreground: 0 0% 0%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 100% 20%;
+    --input: 220 100% 20%;
+    --ring: 84 100% 50%;
+
+    --sidebar-background: 220 100% 10%;
+    --sidebar-foreground: 84 100% 50%;
+    --sidebar-primary: 84 100% 50%;
+    --sidebar-primary-foreground: 0 0% 0%;
+    --sidebar-accent: 220 100% 15%;
+    --sidebar-accent-foreground: 84 100% 50%;
+    --sidebar-border: 220 100% 20%;
+    --sidebar-ring: 84 100% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 text-lime-400 font-sans min-h-screen;
+  }
+
+  pre, code {
+    @apply font-mono;
+  }
+}
+
+.futuristic-text {
+  @apply text-lime-400;
+}
+
+.futuristic-glow {
+  text-shadow: 0 0 10px rgba(50, 205, 50, 0.5), 0 0 20px rgba(50, 205, 50, 0.3), 0 0 30px rgba(50, 205, 50, 0.2);
+}
+
+.markdown-editor {
+  @apply font-mono text-base leading-relaxed text-lime-400;
+}
+
+.markdown-preview {
+  @apply prose max-w-none prose-blue dark:prose-invert;
+}
+
+.markdown-preview pre {
+  @apply bg-secondary p-4 rounded-md overflow-x-auto;
+}
+
+.markdown-preview code {
+  @apply text-sm font-mono text-lime-400;
+}
+
+.markdown-preview h1,
+.markdown-preview h2,
+.markdown-preview h3,
+.markdown-preview h4,
+.markdown-preview h5,
+.markdown-preview h6 {
+  @apply font-sans font-semibold text-lime-400;
+}
+
+.markdown-preview ul,
+.markdown-preview ol {
+  @apply my-4 ml-6;
+}
+
+/* Additional lime green and black styling */
+.text-number {
+  @apply text-lime-400 font-bold;
+}
+
+.text-primary-content {
+  @apply text-black;
+}
+
+.bg-primary-content {
+  @apply bg-black;
+}
