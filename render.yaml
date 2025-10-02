@@ -1,16 +1,13 @@
 services:
   - type: web
     name: loadboard-ai
-    env: node
-    plan: free
+    env: static
     buildCommand: npm ci && npm run build
-    startCommand: npm run start
+    staticPublishPath: ./dist
     healthCheckPath: /health
     envVars:
       - key: NODE_ENV
         value: production
-      - key: PORT
-        value: 8000
     domains:
       - loadboard-ai.onrender.com
     headers:
