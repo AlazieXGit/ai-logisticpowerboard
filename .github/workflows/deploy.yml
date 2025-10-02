@@ -11,19 +11,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    
+
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
         node-version: '18'
         cache: 'npm'
-    
+
     - name: Install dependencies
       run: npm ci
-    
+
     - name: Run tests
       run: npm run test --if-present
-    
+
     - name: Build frontend
       run: npm run build
 
@@ -31,28 +31,28 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
-    
+
     steps:
     - uses: actions/checkout@v3
-    
+
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
         node-version: '18'
         cache: 'npm'
-    
+
     - name: Install dependencies
       run: npm ci
-    
+
     - name: Build application
       run: npm run build
-    
+
     - name: Deploy to Render
       run: |
         curl -X POST "https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}" \
           -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
           -H "Content-Type: application/json"
-    
+
     - name: Deploy to Railway (fallback)
       if: failure()
       run: |
@@ -63,13 +63,13 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
-    
+
     steps:
     - uses: actions/checkout@v3
-    
+
     - name: Build Docker image
       run: docker build -t loadboard-ai .
-    
+
     - name: Test Docker container
       run: |
         docker run -d -p 8000:8000 --name test-container loadboard-ai
