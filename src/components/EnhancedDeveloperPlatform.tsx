@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ArrowUp, Brain } from 'lucide-react';
+import { getApiUrl } from '@/lib/api-config';
 
 const EnhancedDeveloperPlatform = () => {
   const [upgradeRequests, setUpgradeRequests] = useState([]);
@@ -13,8 +14,8 @@ const EnhancedDeveloperPlatform = () => {
       try {
         setLoading(true);
         const [upgradesRes, aiRes] = await Promise.all([
-          axios.get('https://www.alazie.express/api/upgrade-requests'),
-          axios.get('https://www.alazie.express/api/ai-integrations')
+          axios.get(getApiUrl('api/upgrade-requests')),
+          axios.get(getApiUrl('api/ai-integrations'))
         ]);
         setUpgradeRequests(upgradesRes.data);
         setAiIntegrations(aiRes.data);
