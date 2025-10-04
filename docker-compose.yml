@@ -1,22 +1,73 @@
-version: '3.8'
+version: "3.9"
 
 services:
-  web:
-    build: .
-    ports:
-      - "8000:80"
+  postgres:
+    image: postgres:15
+    container_name: tha-postgres
     restart: unless-stopped
     environment:
-      - NODE_ENV=production
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: tha_db
+    ports:
+      - "5432:5432"
     volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:80"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      retries: 5
 
-networks:
-  default:
-    driver: bridge
+  backend-express:
+    build: ./backend-express
+    container_name: tha-backend-express
+    restart: unless-stopped
+    ports:
+      - "4000:4000"
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/tha_db
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY}
+      PLAID_CLIENT_ID: ${PLAID_CLIENT_ID}
+      PLAID_SECRET: ${PLAID_SECRET}
+      WISE_API_KEY: ${WISE_API_KEY}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: >
+      sh -c "
+        npx prisma migrate deploy &&
+        npx prisma db seed &&
+        npm run start
+      "
+
+  backend-fastapi:
+    build: ./backend-fastapi
+    container_name: tha-backend-fastapi
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/tha_db
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY}
+      PLAID_CLIENT_ID: ${PLAID_CLIENT_ID}
+      PLAID_SECRET: ${PLAID_SECRET}
+      WISE_API_KEY: ${WISE_API_KEY}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: >
+      uvicorn app.main:app --host 0.0.0.0 --port 5000
+
+  frontend:
+    build: ./frontend
+    container_name: tha-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      VITE_API_URL: https://www.alazie.express
+    depends_on:
+      - backend-express
+
+volumes:
+  postgres_data:

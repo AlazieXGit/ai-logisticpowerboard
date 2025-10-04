@@ -17,6 +17,7 @@ import OnboardingPage from "./pages/OnboardingPage";
 import TrainingPage from "./pages/TrainingPage";
 import DataDownloadPage from "./pages/DataDownloadPage";
 import NotFound from "./pages/NotFound";
+import BackOfficeControlCenter from "./components/BackOfficeControlCenter";
 
 const queryClient = new QueryClient();
 
@@ -40,6 +41,7 @@ const App = () => (
                 <Route path="/onboarding" element={<OnboardingPage />} />
                 <Route path="/training" element={<TrainingPage />} />
                 <Route path="/downloads" element={<DataDownloadPage />} />
+                <Route path="/backoffice" element={<BackOfficeControlCenter />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </BrowserRouter>
