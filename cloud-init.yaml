@@ -1,0 +1,51 @@
+#cloud-config
+package_update: true
+package_upgrade: true
+packages:
+  - docker.io
+  - docker-compose
+  - nginx
+  - curl
+  - unzip
+  - git
+
+runcmd:
+  - systemctl enable docker
+  - systemctl start docker
+  - usermod -aG docker ubuntu
+  - mkdir -p /app
+  - cd /app
+  - curl -L -o main.zip https://github.com/YOUR_GITHUB_USERNAME/ai-logistics-loadboard/archive/refs/heads/main.zip
+  - unzip main.zip
+  - mv ai-logistics-loadboard-main/* /app/
+  - rm -rf ai-logistics-loadboard-main main.zip
+  - chown -R ubuntu:ubuntu /app
+  - docker-compose up -d --build
+  - cp nginx.conf /etc/nginx/sites-available/default
+  - nginx -t
+  - systemctl restart nginx
+  - systemctl enable nginx
+
+write_files:
+  - path: /etc/systemd/system/loadboard-app.service
+    content: |
+      [Unit]
+      Description=LoadBoard AI Application
+      After=docker.service
+      Requires=docker.service
+      
+      [Service]
+      Type=oneshot
+      RemainAfterExit=yes
+      WorkingDirectory=/app
+      ExecStart=/usr/bin/docker-compose up -d
+      ExecStop=/usr/bin/docker-compose down
+      
+      [Install]
+      WantedBy=multi-user.target
+    permissions: '0644'
+
+final_message: |
+  LoadBoard AI deployment complete!
+  Application running on port 8000
+  Access at: http://YOUR_EC2_PUBLIC_IP:8000

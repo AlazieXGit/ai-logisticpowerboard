@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/placeholder.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LoadBoard AI - Complete Logistics & Transportation Management Platform</title>
+    <meta name="description" content="AI-powered logistics platform for transport logistics, shipping logistics, freight forwarding, supply chain solutions, and transportation management services." />
+    <meta name="keywords" content="kwrds.ai, AdTargeting, WordStream, transport logistics, shipping logistics, transportation and logistics, logistics services, freight forwarding, supply chain solutions, Polar Mass, SEOpital, freight logistics, global transport, global logistics, logistics provider, third party logistics, 3pl, digitalsuccess.us, auto transport, car transport, KeySearch, car shipping, international shipping, air freight, ocean freight, sea freight, freight forwarding companies, freight forwarding services, logistics management, logistics and supply chain management, freight management, warehousing, warehousing and logistics, logistics company near me, logistics services near me, freight transportation services, transport services, transportation services, Zipline Logistics, air cargo logistics, intermodal logistics, last mile delivery, delivery logistics, reverse logistics, cold chain logistics, Kuebix, SEO.com, cross border logistics, trucking logistics, truck transportation services, road freight, rail logistics, railway logistics, expedited freight, haulage companies, carrier logistics, global logistics services, logistics consulting, logistics consultant, customs clearance, customs brokerage, international logistics company, global logistics company, sixthcitymarketing.com, supply chain logistics, industrial logistics, marine logistics, sea logistics, logistics solutions, express logistics, shipping and logistics, delivery companies, freight brokerage, freight brokers, transportation management solutions, transportation management services" />
+    <meta property="og:title" content="LoadBoard AI - Logistics & Transportation Platform" />
+    <meta property="og:description" content="AI-powered logistics management for freight forwarding, supply chain solutions, and transportation services." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="LoadBoard AI - Logistics Platform" />
+    <meta name="twitter:description" content="Complete transportation management system with AI-powered logistics solutions." />
+    <link rel="manifest" href="/manifest.json" />
+    <script>
+      // Immediate keyword interception
+      const LOGISTICS_KEYWORDS = ['kwrds.ai', 'AdTargeting', 'WordStream', 'transport logistics', 'shipping logistics', 'transportation and logistics', 'logistics services', 'freight forwarding', 'supply chain solutions', 'Polar Mass', 'SEOpital', 'freight logistics', 'global transport', 'global logistics', 'logistics provider', 'third party logistics', '3pl', 'digitalsuccess.us', 'auto transport', 'car transport', 'KeySearch', 'car shipping', 'international shipping', 'air freight', 'ocean freight', 'sea freight', 'freight forwarding companies', 'freight forwarding services', 'logistics management', 'logistics and supply chain management', 'freight management', 'warehousing', 'warehousing and logistics', 'logistics company near me', 'logistics services near me', 'freight transportation services', 'transport services', 'transportation services', 'Zipline Logistics', 'air cargo logistics', 'intermodal logistics', 'last mile delivery', 'delivery logistics', 'reverse logistics', 'cold chain logistics', 'Kuebix', 'SEO.com', 'cross border logistics', 'trucking logistics', 'truck transportation services', 'road freight', 'rail logistics', 'railway logistics', 'expedited freight', 'haulage companies', 'carrier logistics', 'global logistics services', 'logistics consulting', 'logistics consultant', 'customs clearance', 'customs brokerage', 'international logistics company', 'global logistics company', 'sixthcitymarketing.com', 'supply chain logistics', 'industrial logistics', 'marine logistics', 'sea logistics', 'logistics solutions', 'express logistics', 'shipping and logistics', 'delivery companies', 'freight brokerage', 'freight brokers', 'transportation management solutions', 'transportation management services'];
+      
+      // Check if current URL contains logistics keywords
+      const currentUrl = window.location.href.toLowerCase();
+      const hasKeyword = LOGISTICS_KEYWORDS.some(keyword => currentUrl.includes(keyword.toLowerCase()));
+      
+      if (hasKeyword && !window.location.pathname.startsWith('/')) {
+        window.location.href = window.location.origin;
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
