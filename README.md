@@ -4,7 +4,31 @@ Revolutionary AI-powered logistics platform with integrated Transportation Manag
 
 ## 🚀 Quick Start
 
-### Development
+### Using Docker (Recommended)
+```bash
+# Quick start with our helper script
+chmod +x start.sh
+./start.sh
+```
+
+Or manually:
+```bash
+# Copy environment file
+cp .env.example .env
+
+# Edit .env with your values
+nano .env
+
+# Start services
+docker compose --env-file .env up --build -d
+```
+
+Access at:
+- Frontend: http://localhost:3000
+- Backend Express: http://localhost:4000
+- Backend FastAPI: http://localhost:5000
+
+### Development (Frontend Only)
 ```bash
 npm install
 npm run dev
@@ -13,22 +37,37 @@ Access at: http://localhost:8080
 
 ### Production Deployment
 
-#### Option 1: Docker (Recommended)
-```bash
-# Local deployment
-chmod +x deploy.sh
-./deploy.sh
+See [PRODUCTION_DEPLOYMENT.md](./PRODUCTION_DEPLOYMENT.md) for detailed production deployment instructions.
 
-# Production deployment with SSL
-chmod +x deploy.prod.sh
-./deploy.prod.sh
+#### Quick Production Deploy
+```bash
+# With Docker
+docker compose --env-file .env up --build -d
+
+# Manual
+npm run build
+npm run preview
 ```
 
-#### Option 2: Manual Build
-```bash
-npm install
-npm run build:prod
-npm run preview
+## 🏗️ Architecture
+
+The platform consists of:
+- **Frontend**: React + Vite + TypeScript + Tailwind CSS
+- **Backend Express**: Node.js API server with Prisma
+- **Backend FastAPI**: Python API server for AI features
+- **Database**: PostgreSQL
+
+## 🌐 Production Configuration
+
+The application is configured for production deployment at **https://www.alazie.express**
+
+### Environment Variables
+```env
+STRIPE_SECRET_KEY=sk_live_xxx
+PLAID_CLIENT_ID=your_id
+PLAID_SECRET=your_secret
+WISE_API_KEY=your_key
+VITE_API_URL=https://www.alazie.express
 ```
 
 ## 📱 Mobile Access
@@ -47,6 +86,7 @@ npm run preview
 ## 🌐 Web Access
 
 ### Live URLs
+- **Production**: https://www.alazie.express
 - **Development**: http://localhost:8080
 - **Production**: Configure your domain
 - **Health Check**: /health endpoint
