@@ -27,7 +27,7 @@ if [ ! -f .env ]; then
 fi
 
 # Check if docker is available
-if ! command -v docker &> /dev/null; then
+if ! command -v docker > /dev/null 2>&1; then
     echo "❌ Docker is not installed. Please install Docker first."
     exit 1
 fi
