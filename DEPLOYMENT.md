@@ -2,6 +2,16 @@
 
 This document describes the deployment setup for the LoadBoard AI application.
 
+## Firebase Integration
+
+The application now includes **Firebase Admin SDK** for backend authentication and database management. 
+See [FIREBASE_SETUP.md](./FIREBASE_SETUP.md) for complete Firebase setup instructions including:
+- Firebase Admin SDK initialization
+- User authentication and management
+- Firestore database configuration
+- Security rules deployment
+- Production environment setup
+
 ## GitHub Workflows
 
 ### 1. Python Application Workflow (`.github/workflows/python-app.yml`)
@@ -116,12 +126,26 @@ Production deployments should configure:
 - `NODE_ENV=production`
 - `PORT=8000` (for platforms that require it)
 
+### Firebase Configuration
+
+For Firebase Admin SDK integration:
+- `FIREBASE_SERVICE_ACCOUNT`: Service account JSON as string (required for production)
+- `FIREBASE_PROJECT_ID`: Your Firebase project ID
+- `FIREBASE_DATABASE_URL`: Firebase database URL (optional)
+- `FIREBASE_STORAGE_BUCKET`: Firebase storage bucket (optional)
+
+See [FIREBASE_SETUP.md](./FIREBASE_SETUP.md) for detailed Firebase configuration instructions.
+
 ## Secrets Required
 
 For GitHub Actions deployment to work, configure these secrets:
 - `RENDER_SERVICE_ID`: Your Render service ID
 - `RENDER_API_KEY`: Your Render API key
 - `RAILWAY_TOKEN`: Your Railway token (optional, for fallback)
+
+For Firebase integration (add to your deployment platform):
+- `FIREBASE_SERVICE_ACCOUNT`: Complete service account JSON
+- `FIREBASE_PROJECT_ID`: Firebase project identifier
 
 ## Build Output
 

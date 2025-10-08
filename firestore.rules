@@ -1,0 +1,152 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && 
+             request.auth.token.role == 'admin';
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && 
+             request.auth.uid == userId;
+    }
+    
+    function hasRole(role) {
+      return isAuthenticated() && 
+             request.auth.token.role == role;
+    }
+    
+    // User profiles
+    match /users/{userId} {
+      // Users can read their own profile
+      allow read: if isOwner(userId) || isAdmin();
+      
+      // Users can create their own profile
+      allow create: if isOwner(userId);
+      
+      // Users can update their own profile (except role and permissions)
+      allow update: if isOwner(userId) && 
+                       !request.resource.data.diff(resource.data).affectedKeys()
+                         .hasAny(['role', 'permissions']);
+      
+      // Only admins can update roles and permissions
+      allow update: if isAdmin();
+      
+      // Only admins can delete users
+      allow delete: if isAdmin();
+    }
+    
+    // Loads collection
+    match /loads/{loadId} {
+      // All authenticated users can read loads
+      allow read: if isAuthenticated();
+      
+      // Brokers and admins can create loads
+      allow create: if hasRole('broker') || hasRole('admin');
+      
+      // Owner or admin can update
+      allow update: if isAdmin() || 
+                       (isAuthenticated() && resource.data.createdBy == request.auth.uid);
+      
+      // Only admin can delete
+      allow delete: if isAdmin();
+    }
+    
+    // Carriers collection
+    match /carriers/{carrierId} {
+      // All authenticated users can read carriers
+      allow read: if isAuthenticated();
+      
+      // Only verified carriers and admins can create/update
+      allow create: if hasRole('carrier') || hasRole('admin');
+      allow update: if isOwner(carrierId) || isAdmin();
+      
+      // Only admin can delete
+      allow delete: if isAdmin();
+    }
+    
+    // Brokers collection
+    match /brokers/{brokerId} {
+      // All authenticated users can read brokers
+      allow read: if isAuthenticated();
+      
+      // Only verified brokers and admins can create/update
+      allow create: if hasRole('broker') || hasRole('admin');
+      allow update: if isOwner(brokerId) || isAdmin();
+      
+      // Only admin can delete
+      allow delete: if isAdmin();
+    }
+    
+    // Transactions collection
+    match /transactions/{transactionId} {
+      // Users can read their own transactions
+      allow read: if isAuthenticated() && 
+                     (resource.data.userId == request.auth.uid || isAdmin());
+      
+      // System creates transactions (server-side only)
+      allow create: if false;
+      
+      // No updates allowed
+      allow update: if false;
+      
+      // Only admin can delete
+      allow delete: if isAdmin();
+    }
+    
+    // Dispatch records
+    match /dispatches/{dispatchId} {
+      // All authenticated users can read dispatches
+      allow read: if isAuthenticated();
+      
+      // Brokers and admins can create dispatches
+      allow create: if hasRole('broker') || hasRole('admin');
+      
+      // Owner or admin can update
+      allow update: if isAdmin() || 
+                       (isAuthenticated() && resource.data.createdBy == request.auth.uid);
+      
+      // Only admin can delete
+      allow delete: if isAdmin();
+    }
+    
+    // Company registrations
+    match /companies/{companyId} {
+      // All authenticated users can read companies
+      allow read: if isAuthenticated();
+      
+      // Admins can create companies
+      allow create: if isAdmin();
+      
+      // Company owner or admin can update
+      allow update: if isAdmin() || 
+                       (isAuthenticated() && resource.data.ownerId == request.auth.uid);
+      
+      // Only admin can delete
+      allow delete: if isAdmin();
+    }
+    
+    // Audit logs (admin only)
+    match /audit_logs/{logId} {
+      allow read: if isAdmin();
+      allow write: if false; // Server-side only
+    }
+    
+    // System configuration (admin only)
+    match /system_config/{configId} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin();
+    }
+    
+    // Default deny rule for all other collections
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
