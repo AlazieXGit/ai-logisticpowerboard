@@ -61,8 +61,20 @@ npm run preview
 
 ### Environment Setup
 1. Configure Supabase credentials in `src/lib/supabase.ts`
-2. Update domain in `docker-compose.prod.yml`
-3. Set SSL email in production config
+2. Configure Firebase Admin SDK (see [QUICKSTART.md](./QUICKSTART.md))
+3. Update domain in `docker-compose.prod.yml`
+4. Set SSL email in production config
+
+### Firebase Setup
+See [QUICKSTART.md](./QUICKSTART.md) for 5-minute Firebase setup guide or [FIREBASE_SETUP.md](./FIREBASE_SETUP.md) for complete documentation.
+
+**Quick start:**
+```bash
+# 1. Get service account key from Firebase Console
+# 2. Place in config/serviceAccountKey.json
+# 3. Test integration
+node scripts/test-firebase.cjs
+```
 
 ### SSL Certificate
 Automatic SSL via Let's Encrypt when using production deployment.
@@ -90,7 +102,9 @@ Automatic SSL via Let's Encrypt when using production deployment.
 - **Frontend**: React 18 + TypeScript
 - **Styling**: Tailwind CSS
 - **UI Components**: Radix UI
-- **Backend**: Supabase
+- **Backend**: Supabase + Firebase Admin SDK
+- **Authentication**: Firebase Authentication
+- **Database**: Firestore + Supabase
 - **Deployment**: Docker + Nginx
 - **SSL**: Let's Encrypt
 - **PWA**: Vite PWA Plugin
