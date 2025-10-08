@@ -1,10 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ArrowUp, Brain } from 'lucide-react';
+import { getApiUrl } from '@/lib/api-config';
+
+interface UpgradeRequest {
+  id: string;
+  type: string;
+  title: string;
+  status: string;
+  priority: string;
+  description: string;
+  estimatedCost: string;
+}
+
+interface AIIntegration {
+  name: string;
+  status: string;
+  usage: string;
+  performance: string;
+}
 
 const EnhancedDeveloperPlatform = () => {
-  const [upgradeRequests, setUpgradeRequests] = useState([]);
-  const [aiIntegrations, setAiIntegrations] = useState([]);
+  const [upgradeRequests, setUpgradeRequests] = useState<UpgradeRequest[]>([]);
+  const [aiIntegrations, setAiIntegrations] = useState<AIIntegration[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -13,13 +31,17 @@ const EnhancedDeveloperPlatform = () => {
       try {
         setLoading(true);
         const [upgradesRes, aiRes] = await Promise.all([
-          axios.get('https://www.alazie.express/api/upgrade-requests'),
-          axios.get('https://www.alazie.express/api/ai-integrations')
+          axios.get<UpgradeRequest[]>(getApiUrl('api/upgrade-requests')),
+          axios.get<AIIntegration[]>(getApiUrl('api/ai-integrations'))
         ]);
         setUpgradeRequests(upgradesRes.data);
         setAiIntegrations(aiRes.data);
-      } catch (err: any) {
-        setError(err.message || 'Failed to load data');
+      } catch (err) {
+        if (err instanceof Error) {
+          setError(err.message || 'Failed to load data');
+        } else {
+          setError('Failed to load data');
+        }
       } finally {
         setLoading(false);
       }
@@ -37,7 +59,7 @@ const EnhancedDeveloperPlatform = () => {
         {error && <p className="text-red-400">Error: {error}</p>}
         {!loading && !error && (
           <div className="space-y-4">
-            {upgradeRequests.map((request: any) => (
+            {upgradeRequests.map((request) => (
               <div key={request.id} className="bg-gray-700/30 p-4 rounded-lg border border-gray-600">
                 <div className="flex justify-between items-start mb-3">
                   <div className="flex-1">
@@ -63,7 +85,7 @@ const EnhancedDeveloperPlatform = () => {
         {error && <p className="text-red-400">Error: {error}</p>}
         {!loading && !error && (
           <div className="grid gap-4">
-            {aiIntegrations.map((ai: any, index: number) => (
+            {aiIntegrations.map((ai, index) => (
               <div key={index} className="bg-gray-700/30 p-4 rounded-lg border border-gray-600">
                 <div className="flex justify-between items-center mb-3">
                   <h3 className="text-white font-semibold">{ai.name}</h3>

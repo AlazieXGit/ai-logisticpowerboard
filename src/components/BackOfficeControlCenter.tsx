@@ -1,4 +1,5 @@
 import React from 'react';
+import EnhancedDeveloperPlatform from './EnhancedDeveloperPlatform';
 
 const BackOfficeControlCenter = () => {
   return (
@@ -17,8 +18,8 @@ const BackOfficeControlCenter = () => {
           <h2 className="text-xl font-semibold mb-2">Customs Tracking System</h2>
           <CustomsTrackingSystem />
         </div>
-        <div className="bg-gray-800 rounded-lg p-6">
-          <h2 className="text-xl font-semibold mb-2">Enhanced Developer Platform</h2>
+        <div className="bg-gray-800 rounded-lg p-6 col-span-1 md:col-span-2">
+          <h2 className="text-xl font-semibold mb-4">Enhanced Developer Platform</h2>
           <EnhancedDeveloperPlatform />
         </div>
         <div className="bg-gray-800 rounded-lg p-6">
@@ -43,9 +44,6 @@ const InternationalVendorManager = () => (
 );
 const CustomsTrackingSystem = () => (
   <div className="text-gray-300">Customs Tracking System coming soon...</div>
-);
-const EnhancedDeveloperPlatform = () => (
-  <div className="text-gray-300">Enhanced Developer Platform coming soon...</div>
 );
 const CompletePlatformAnalytics = () => (
   <div className="text-gray-300">Platform Analytics coming soon...</div>
