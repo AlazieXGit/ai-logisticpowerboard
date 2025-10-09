@@ -13,14 +13,15 @@ const AdminCredentials: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [copiedItem, setCopiedItem] = useState<string | null>(null);
 
-  // Admin credentials for the LoadBoard AI + TMS system
+  // Admin credentials should be loaded from secure environment variables
+  // DO NOT hardcode credentials in source code
   const adminCredentials = {
-    email: 'admin@loadboard-ai.com',
-    password: 'LoadBoard2024!Admin#TMS',
-    backupEmail: 'superadmin@loadboard-ai.com',
-    backupPassword: 'SuperAdmin2024!LB#AI',
-    masterKey: 'MASTER_ADMIN_KEY_2024_LOADBOARD_AI_TMS',
-    systemId: 'LBAI_ADMIN_SYS_001'
+    email: import.meta.env.VITE_ADMIN_EMAIL || '[Configure in .env]',
+    password: import.meta.env.VITE_ADMIN_PASSWORD || '[Configure in .env]',
+    backupEmail: import.meta.env.VITE_BACKUP_EMAIL || '[Configure in .env]',
+    backupPassword: import.meta.env.VITE_BACKUP_PASSWORD || '[Configure in .env]',
+    masterKey: import.meta.env.VITE_MASTER_KEY || '[Configure in .env]',
+    systemId: import.meta.env.VITE_SYSTEM_ID || '[Configure in .env]'
   };
 
   const copyToClipboard = (text: string, item: string) => {

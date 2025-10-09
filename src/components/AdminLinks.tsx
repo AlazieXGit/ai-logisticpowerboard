@@ -14,20 +14,20 @@ const AdminLinks: React.FC = () => {
   const [copiedItem, setCopiedItem] = useState<string | null>(null);
 
   const adminCodes = {
-    masterAdmin: 'ADMIN_MASTER_2024_LB_AI',
-    systemConfig: 'SYS_CONFIG_7000_ENROLL',
-    feeManagement: 'FEE_MGMT_3_5_PERCENT',
-    userManagement: 'USER_MGMT_ENHANCED_AUTH',
-    dataAccess: 'DATA_ACCESS_FULL_CONTROL',
+    masterAdmin: import.meta.env.VITE_ADMIN_CODE_MASTER || '[Configure in .env]',
+    systemConfig: import.meta.env.VITE_ADMIN_CODE_SYSTEM || '[Configure in .env]',
+    feeManagement: import.meta.env.VITE_ADMIN_CODE_FEE || '[Configure in .env]',
+    userManagement: import.meta.env.VITE_ADMIN_CODE_USER || '[Configure in .env]',
+    dataAccess: import.meta.env.VITE_ADMIN_CODE_DATA || '[Configure in .env]',
     apiKeys: {
-      supabase: 'sb-proj-abc123def456ghi789',
-      stripe: 'sk_live_51ABC123DEF456GHI789',
-      twilio: 'AC123abc456def789ghi012',
-      openai: 'sk-proj-ABC123DEF456GHI789JKL'
+      supabase: import.meta.env.VITE_SUPABASE_KEY || '[Configure in .env]',
+      stripe: import.meta.env.VITE_STRIPE_KEY || '[Configure in .env]',
+      twilio: import.meta.env.VITE_TWILIO_KEY || '[Configure in .env]',
+      openai: import.meta.env.VITE_OPENAI_KEY || '[Configure in .env]'
     },
     databaseUrls: {
-      production: 'postgresql://user:pass@db.supabase.co:5432/postgres',
-      staging: 'postgresql://user:pass@staging.supabase.co:5432/postgres'
+      production: import.meta.env.VITE_DB_URL_PROD || '[Configure in .env]',
+      staging: import.meta.env.VITE_DB_URL_STAGING || '[Configure in .env]'
     }
   };
 
