@@ -4,7 +4,43 @@ Revolutionary AI-powered logistics platform with integrated Transportation Manag
 
 ## 🚀 Quick Start
 
-### Development
+### Development Environment (Recommended)
+
+Start all development processes with supervisord:
+
+```bash
+# Using the automated setup script
+./start-dev.sh
+```
+
+This will start:
+- ✅ npm run dev (Vite dev server on port 8080)
+- ✅ vite (running via npm)
+- ✅ previewserver (production preview on port 8000)
+- ✅ capra-management-server (management API on port 9000)
+- ✅ nixd (Nix language server, if available)
+- ✅ supervisord (process manager)
+
+**Verify everything is running:**
+```bash
+./verify-environment.sh
+```
+
+**Using Nix (optional):**
+```bash
+# With Nix flakes
+nix develop
+
+# With direnv
+direnv allow
+
+# Legacy nix-shell
+nix-shell
+```
+
+See [DEV_ENVIRONMENT.md](DEV_ENVIRONMENT.md) for detailed documentation.
+
+### Simple Development
 ```bash
 npm install
 npm run dev

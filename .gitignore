@@ -24,3 +24,11 @@ dist-ssr
 *.sw?
 *.zip
 MASTER_APP_CODES.zip
+
+# Supervisor logs and runtime files
+/tmp/supervisor*
+/tmp/*.log
+
+# Direnv
+.direnv/
+.envrc.cache
