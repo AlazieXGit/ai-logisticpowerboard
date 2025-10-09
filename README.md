@@ -60,9 +60,18 @@ npm run preview
 ## 🔧 Configuration
 
 ### Environment Setup
-1. Configure Supabase credentials in `src/lib/supabase.ts`
-2. Update domain in `docker-compose.prod.yml`
-3. Set SSL email in production config
+1. Copy `.env.example` to `.env.development` or `.env.production`
+2. Fill in your actual credentials (never commit these files)
+3. Configure Supabase credentials using environment variables
+4. Update domain in `docker-compose.prod.yml`
+5. Set SSL email in production config
+
+### Security Notes
+⚠️ **IMPORTANT**: Never commit `.env` files or hardcode credentials in source code
+- See [SECURITY.md](SECURITY.md) for security best practices
+- Use environment variables for all sensitive configuration
+- Store CI/CD secrets in GitHub Secrets
+- Review [SECURITY.md](SECURITY.md) before deployment
 
 ### SSL Certificate
 Automatic SSL via Let's Encrypt when using production deployment.
