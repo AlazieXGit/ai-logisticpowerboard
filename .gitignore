@@ -24,3 +24,17 @@ dist-ssr
 *.sw?
 *.zip
 MASTER_APP_CODES.zip
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+pytest-results.xml
+.pytest_cache/
