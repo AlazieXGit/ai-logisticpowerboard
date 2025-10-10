@@ -1,0 +1,44 @@
+{
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "android": { "buildType": "apk" },
+      "ios": { "simulator": true },
+      "env": { "API_URL": "https://dev.api.example.com" },
+      "hooks": {
+        "prebuild": "npm install",
+        "postinstall": "npm run dev",
+        "postbuild": "echo 'Build complete for development'"
+      }
+    },
+    "preview": {
+      "distribution": "internal",
+      "android": { "buildType": "app-bundle" },
+      "ios": { "simulator": false },
+      "env": { "API_URL": "https://staging.api.example.com" },
+      "hooks": {
+        "prebuild": "npm install",
+        "build": "npm run build:dev",
+        "postbuild": "echo 'Preview build complete'"
+      }
+    },
+    "production": {
+      "distribution": "store",
+      "android": { "buildType": "app-bundle" },
+      "ios": { "simulator": false },
+      "env": { "API_URL": "https://www.alazie.express" },
+      "hooks": {
+        "prebuild": "npm install",
+        "build": "npm run build",
+        "postbuild": "echo 'Production build complete'"
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  },
+  "cli": {
+    "version": ">= 3.0.0"
+  }
+}
