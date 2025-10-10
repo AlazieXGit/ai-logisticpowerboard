@@ -39,3 +39,13 @@ jobs:
         pytest
     # Note: Artifact upload removed to prevent exposure of sensitive data
     # Test results should be reviewed in the workflow logs instead
+### 1. Python Application Workflow (`.github/workflows/python-app.yml`)
+- Triggers on push and pull requests to the `main` branch
+- Sets up Python 3.10
+- Installs dependencies from `requirements.txt` (if present)
+- Runs linting with flake8
+- Runs tests with pytest
+- **Note**: Currently, there are no Python files in the repository, so this workflow is prepared for future Python components
+
+### 2. Deploy LoadBoard AI Workflow (`.github/workflows/deploy.yml`)
+- Handles deployment automation (see script for details)
