@@ -1,0 +1,65 @@
+{
+  "cli": {
+    "version": ">= 5.0.0"
+  },
+  "build": {
+    "development": {
+      "distribution": "internal",
+      "channel": "development",
+      "env": {
+        "NODE_ENV": "development",
+        "VITE_API_URL": "http://localhost:4000"
+      },
+      "node": "20.x.x",
+      "buildType": "custom",
+      "prebuild": {
+        "run": "npm install"
+      },
+      "build": {
+        "run": "npm run build:dev"
+      }
+    },
+    "preview": {
+      "distribution": "internal",
+      "channel": "preview",
+      "env": {
+        "NODE_ENV": "production",
+        "VITE_API_URL": "https://preview.alazie.express"
+      },
+      "node": "20.x.x",
+      "buildType": "custom",
+      "prebuild": {
+        "run": "npm install"
+      },
+      "build": {
+        "run": "npm run build"
+      }
+    },
+    "production": {
+      "distribution": "store",
+      "channel": "production",
+      "env": {
+        "NODE_ENV": "production",
+        "VITE_API_URL": "https://www.alazie.express"
+      },
+      "node": "20.x.x",
+      "buildType": "custom",
+      "prebuild": {
+        "run": "npm ci"
+      },
+      "build": {
+        "run": "npm run build"
+      },
+      "cache": {
+        "disabled": false,
+        "paths": [
+          "node_modules",
+          "dist"
+        ]
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}
