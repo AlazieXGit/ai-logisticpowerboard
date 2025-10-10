@@ -38,6 +38,13 @@ npm run preview
 2. Tap "Add to Home Screen" in browser menu
 3. App installs like native mobile app
 
+### EAS (Expo Application Services) - Native Mobile Apps
+For building and deploying native iOS and Android apps using EAS:
+- **[EAS_SETUP.md](./EAS_SETUP.md)** - Complete setup guide
+- **[DEPLOYMENT.md](./DEPLOYMENT.md)** - Includes EAS deployment instructions
+
+Quick setup: `npm install -g eas-cli && eas login && eas init`
+
 ### Features
 - ✅ Offline functionality
 - ✅ Push notifications
@@ -103,6 +110,14 @@ Automatic SSL via Let's Encrypt when using production deployment.
 - **Deployment**: Docker + Nginx
 - **SSL**: Let's Encrypt
 - **PWA**: Vite PWA Plugin
+- **Mobile**: Expo Application Services (EAS)
+
+## 📚 Documentation
+
+- **[EAS_SETUP.md](./EAS_SETUP.md)** - Complete guide for Expo Application Services setup
+- **[DEPLOYMENT.md](./DEPLOYMENT.md)** - Deployment guide for all platforms
+- **[SECURITY.md](./SECURITY.md)** - Security best practices
+- **[EAS_IMPLEMENTATION_SUMMARY.md](./EAS_IMPLEMENTATION_SUMMARY.md)** - Summary of EAS implementation
 
 ## 🚀 Deployment Status
 
