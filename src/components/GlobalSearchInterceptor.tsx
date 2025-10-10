@@ -53,7 +53,7 @@ const GlobalSearchInterceptor = () => {
       // Override XMLHttpRequest
       const originalXHR = window.XMLHttpRequest;
       window.XMLHttpRequest = class extends originalXHR {
-        open(method: string, url: string | URL, ...args: any[]) {
+        open(method: string, url: string | URL, ...args: unknown[]) {
           const urlStr = typeof url === 'string' ? url : url.toString();
           const hasLogisticsKeyword = LOGISTICS_KEYWORDS.some(keyword => 
             urlStr.toLowerCase().includes(keyword.toLowerCase())

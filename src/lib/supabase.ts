@@ -2,9 +2,14 @@
 // This file will be auto-generated when Supabase is properly configured
 // For now, using mock data and local state management
 
+interface SupabaseFunctionOptions {
+  body?: Record<string, unknown>;
+  headers?: Record<string, string>;
+}
+
 export const supabase = {
   functions: {
-    invoke: async (functionName: string, options: any) => {
+    invoke: async (functionName: string, options?: SupabaseFunctionOptions) => {
       // Mock implementation for development
       console.log(`Mock Supabase function call: ${functionName}`, options);
       return { data: null, error: null };

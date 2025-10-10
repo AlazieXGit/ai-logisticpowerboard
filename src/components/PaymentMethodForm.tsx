@@ -7,8 +7,25 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Checkbox } from '@/components/ui/checkbox';
 import { CreditCard, Building, Shield } from 'lucide-react';
 
+export interface PaymentData {
+  cardNumber: string;
+  expiryDate: string;
+  cvv: string;
+  cardholderName: string;
+  billingAddress: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  bankName: string;
+  routingNumber: string;
+  accountNumber: string;
+  accountType: string;
+  authorizeACH: boolean;
+  paymentType: string;
+}
+
 interface PaymentMethodFormProps {
-  onSubmit: (paymentData: any) => void;
+  onSubmit: (paymentData: PaymentData) => void;
   required?: boolean;
 }
 

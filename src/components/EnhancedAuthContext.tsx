@@ -125,7 +125,7 @@ export const EnhancedAuthProvider: React.FC<EnhancedAuthProviderProps> = ({ chil
 
   const updateSubscription = (status: string) => {
     if (user) {
-      const updatedUser = { ...user, subscriptionStatus: status as any };
+      const updatedUser = { ...user, subscriptionStatus: status as User['subscriptionStatus'] };
       setUser(updatedUser);
       localStorage.setItem('enhanced_auth_user', JSON.stringify(updatedUser));
     }
