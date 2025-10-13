@@ -3,12 +3,12 @@ version: "3.9"
 services:
   postgres:
     image: postgres:15
-    container_name: tha-postgres
+    container_name: loadboard-postgres
     restart: unless-stopped
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: tha_db
+      POSTGRES_DB: loadboard_db
     ports:
       - "5432:5432"
     volumes:
@@ -18,56 +18,42 @@ services:
       interval: 5s
       retries: 5
 
-  backend-express:
-    build: ./backend-express
-    container_name: tha-backend-express
-    restart: unless-stopped
-    ports:
-      - "4000:4000"
-    environment:
-      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/tha_db
-      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY}
-      PLAID_CLIENT_ID: ${PLAID_CLIENT_ID}
-      PLAID_SECRET: ${PLAID_SECRET}
-      WISE_API_KEY: ${WISE_API_KEY}
-    depends_on:
-      postgres:
-        condition: service_healthy
-    command: >
-      sh -c "
-        npx prisma migrate deploy &&
-        npx prisma db seed &&
-        npm run start
-      "
-
   backend-fastapi:
     build: ./backend-fastapi
-    container_name: tha-backend-fastapi
+    container_name: loadboard-backend-fastapi
     restart: unless-stopped
     ports:
-      - "5000:5000"
+      - "8000:8000"
     environment:
-      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/tha_db
-      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY}
-      PLAID_CLIENT_ID: ${PLAID_CLIENT_ID}
-      PLAID_SECRET: ${PLAID_SECRET}
-      WISE_API_KEY: ${WISE_API_KEY}
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/loadboard_db
+      DOMAIN_URL: ${DOMAIN_URL:-https://www.alazie.express}
     depends_on:
       postgres:
         condition: service_healthy
-    command: >
-      uvicorn app.main:app --host 0.0.0.0 --port 5000
+    command: uvicorn main:app --host 0.0.0.0 --port 8000
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   frontend:
-    build: ./frontend
-    container_name: tha-frontend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: loadboard-frontend
     restart: unless-stopped
     ports:
-      - "3000:3000"
+      - "80:8000"
     environment:
-      VITE_API_URL: ${VITE_API_URL:-http://localhost:4000}
+      VITE_API_URL: ${VITE_API_URL:-https://www.alazie.express}
     depends_on:
-      - backend-express
+      - backend-fastapi
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
 volumes:
   postgres_data:

@@ -12,6 +12,18 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Health check endpoint
+@app.get("/health")
+async def health_check():
+    """Health check endpoint"""
+    return {"status": "healthy", "message": "LoadBoard AI Backend is running"}
+
+# Root endpoint
+@app.get("/")
+async def root():
+    """Root endpoint"""
+    return {"message": "LoadBoard AI Backend API"}
+
 # Mock DB
 upgrade_requests = [
     {
