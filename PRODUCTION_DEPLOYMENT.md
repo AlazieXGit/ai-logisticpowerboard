@@ -39,9 +39,7 @@ docker-compose --env-file .env up --build -d
 
 This will start:
 - PostgreSQL database on port 5432
-- Express backend on port 4000
 - FastAPI backend on port 5000
-- React frontend on port 3000
 
 ### 4. Verify Services
 Check that all services are running:
@@ -63,37 +61,38 @@ curl http://localhost:5000/api/ai-integrations
    - Database: tha_db
    - Health check: pg_isready
 
-2. **Backend Express** - Node.js API server
-   - Port: 4000
-   - Runs Prisma migrations and seeds on startup
-   - Handles payment processing and business logic
-
-3. **Backend FastAPI** - Python API server
+2. **Backend FastAPI** - Python API server
    - Port: 5000
    - Provides upgrade requests and AI integrations endpoints
-   - CORS configured for production domain
-
-4. **Frontend** - React application
-   - Port: 3000
-   - Built with Vite and React
-   - API URL: https://www.alazie.express
+   - CORS configured for production domain (https://www.alazie.express)
+   - Includes root (/) and health (/health) endpoints
 
 ## API Configuration
 
-The frontend uses a centralized API configuration in `src/lib/api-config.ts`:
-```typescript
-export const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://www.alazie.express';
-```
+The FastAPI backend provides the following endpoints:
+- `GET /` - Root endpoint (returns API status)
+- `GET /health` - Health check endpoint
+- `GET /api/upgrade-requests` - Get upgrade requests
+- `POST /api/upgrade-requests` - Create upgrade request
+- `GET /api/ai-integrations` - Get AI integrations
+- `POST /api/ai-integrations` - Create AI integration
 
-This allows easy switching between development and production environments.
+Interactive API documentation is available at:
+- Swagger UI: `http://localhost:5000/docs`
+- ReDoc: `http://localhost:5000/redoc`
 
 ## Development vs Production
 
 ### Development
-For local development, set `VITE_API_URL=http://localhost:5000` in your `.env` file.
+For local development, run the FastAPI backend with:
+```bash
+cd backend-fastapi
+pip install -r requirements.txt
+uvicorn main:app --reload --host 0.0.0.0 --port 5000
+```
 
 ### Production
-For production deployment, use `VITE_API_URL=https://www.alazie.express`.
+For production deployment using Docker Compose, the backend runs automatically with the optimized settings.
 
 ## Deployment Steps
 
@@ -121,13 +120,6 @@ pip install -r requirements.txt
 uvicorn main:app --host 0.0.0.0 --port 5000
 ```
 
-#### Frontend
-```bash
-npm install
-npm run build
-npm run preview
-```
-
 ## Monitoring
 
 ### View Logs
@@ -144,8 +136,15 @@ docker-compose logs -f backend-fastapi
 # PostgreSQL
 docker-compose exec postgres pg_isready -U postgres
 
-# Backend FastAPI
+# Backend FastAPI - Root endpoint
+curl http://localhost:5000/
+
+# Backend FastAPI - Health check
+curl http://localhost:5000/health
+
+# Backend FastAPI - API endpoints
 curl http://localhost:5000/api/upgrade-requests
+curl http://localhost:5000/api/ai-integrations
 ```
 
 ## Troubleshooting
@@ -157,17 +156,17 @@ curl http://localhost:5000/api/upgrade-requests
 
 ### CORS Errors
 - Verify CORS configuration in `backend-fastapi/main.py`
-- Ensure production domain is included in `allow_origins`
+- Ensure production domain (https://www.alazie.express) is included in `allow_origins`
+- For local development, http://localhost:3000 is also allowed
 - Check browser console for specific CORS errors
-
-### Frontend Not Loading
-- Check that `VITE_API_URL` is set correctly
-- Verify frontend container is running: `docker-compose ps`
-- Check frontend logs: `docker-compose logs frontend`
 
 ## SSL/HTTPS Setup
 
-For production deployment with HTTPS, use a reverse proxy like Nginx:
+For production deployment with HTTPS, use a reverse proxy like Nginx.
+
+**Note**: The React frontend is deployed separately (see main README.md and Dockerfile). The docker-compose.yml focuses on backend services (PostgreSQL and FastAPI).
+
+To set up the full production stack:
 
 1. Install Nginx
 2. Configure SSL certificates (Let's Encrypt recommended)
@@ -183,12 +182,14 @@ server {
     ssl_certificate /path/to/cert.pem;
     ssl_certificate_key /path/to/key.pem;
 
+    # Frontend (served by Nginx or separate container - see Dockerfile)
     location / {
-        proxy_pass http://localhost:3000;
+        proxy_pass http://localhost:8000;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
     }
 
+    # Backend API
     location /api/ {
         proxy_pass http://localhost:5000;
         proxy_set_header Host $host;
