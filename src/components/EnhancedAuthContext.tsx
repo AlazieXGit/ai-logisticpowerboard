@@ -73,7 +73,7 @@ export const EnhancedAuthProvider: React.FC<EnhancedAuthProviderProps> = ({ chil
     setLoading(true);
     try {
       const mockUser: User = {
-        id: Math.random().toString(36).substr(2, 9),
+        id: generateSecureId(9),
         email,
         plan: 'free',
         subscriptionStatus: 'free',
