@@ -2,6 +2,19 @@
 
 This document describes the deployment setup for the LoadBoard AI application.
 
+## EAS (Expo Application Services) Deployment
+
+For mobile app deployment using Expo Application Services, see the dedicated guide:
+- **[EAS_SETUP.md](./EAS_SETUP.md)** - Complete setup guide for EAS builds and updates
+
+### Quick EAS Setup Checklist
+- [ ] Install EAS CLI: `npm install -g eas-cli`
+- [ ] Login to Expo: `eas login`
+- [ ] Verify `eas.json` configuration at project root
+- [ ] Verify `app.json` has correct `slug` and `owner`
+- [ ] Set `EXPO_TOKEN` in GitHub Secrets (for CI/CD)
+- [ ] Initialize project: `eas init` (if not done)
+
 ## GitHub Workflows
 
 ### 1. Python Application Workflow (`.github/workflows/python-app.yml`)
@@ -122,6 +135,21 @@ For GitHub Actions deployment to work, configure these secrets:
 - `RENDER_SERVICE_ID`: Your Render service ID
 - `RENDER_API_KEY`: Your Render API key
 - `RAILWAY_TOKEN`: Your Railway token (optional, for fallback)
+- `EXPO_TOKEN`: Your Expo access token (for EAS builds/updates) - see [EAS_SETUP.md](./EAS_SETUP.md)
+
+### Creating an EXPO_TOKEN
+
+1. Install EAS CLI: `npm install -g eas-cli`
+2. Login to Expo: `eas login`
+3. Create a token: `eas token:create`
+4. Copy the token and add it to GitHub Secrets:
+   - Go to GitHub → Settings → Secrets and variables → Actions
+   - Click "New repository secret"
+   - Name: `EXPO_TOKEN`
+   - Value: Paste your token
+   - Click "Add secret"
+
+For detailed EAS setup instructions, see [EAS_SETUP.md](./EAS_SETUP.md).
 
 ## Build Output
 

@@ -1,0 +1,40 @@
+{
+  "expo": {
+    "name": "ai-logisticpowerboard",
+    "slug": "ai-logisticpowerboard",
+    "owner": "197620142025",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./public/placeholder.svg",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./public/placeholder.svg",
+      "resizeMode": "contain",
+      "backgroundColor": "#2563eb"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.alazie.logisticpowerboard"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./public/placeholder.svg",
+        "backgroundColor": "#2563eb"
+      },
+      "package": "com.alazie.logisticpowerboard"
+    },
+    "web": {
+      "favicon": "./public/favicon.ico",
+      "bundler": "metro"
+    },
+    "plugins": [],
+    "extra": {
+      "eas": {
+        "projectId": "ai-logisticpowerboard"
+      }
+    }
+  }
+}
