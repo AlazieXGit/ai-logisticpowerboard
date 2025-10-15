@@ -5,35 +5,40 @@ Revolutionary AI-powered logistics platform with integrated Transportation Manag
 ## 🚀 Quick Start
 
 ### Using Docker (Recommended)
+
+**Quick start with our helper script:**
 ```bash
-# Quick start with our helper script
-chmod +x start.sh
-./start.sh
+chmod +x run.sh
+./run.sh
 ```
 
-Or manually:
+**Or manually:**
 ```bash
 # Copy environment file
 cp .env.example .env
 
-# Edit .env with your values
-nano .env
-
 # Start services
-docker compose --env-file .env up --build -d
+docker compose up --build -d
 ```
 
-Access at:
-- Frontend: http://localhost:3000
-- Backend Express: http://localhost:4000
-- Backend FastAPI: http://localhost:5000
+**Access at:**
+- Frontend: http://localhost:80
+- Backend API: http://localhost:8000
+- API Health: http://localhost:8000/health
+- API Docs: http://localhost:8000/docs
+- PostgreSQL: localhost:5432
+
+**Domain Configuration:**
+The application is configured for: **https://www.alazie.express**
+
+For detailed Docker setup instructions, see [DOCKER_SETUP.md](./DOCKER_SETUP.md)
 
 ### Development (Frontend Only)
 ```bash
 npm install
 npm run dev
 ```
-Access at: http://localhost:8080
+Access at: http://localhost:5173
 
 ### Production Deployment
 
@@ -42,7 +47,7 @@ See [PRODUCTION_DEPLOYMENT.md](./PRODUCTION_DEPLOYMENT.md) for detailed producti
 #### Quick Production Deploy
 ```bash
 # With Docker
-docker compose --env-file .env up --build -d
+docker compose up --build -d
 
 # Manual
 npm run build
