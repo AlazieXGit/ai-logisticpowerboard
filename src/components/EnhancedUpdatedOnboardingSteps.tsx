@@ -9,7 +9,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Truck, Building, Shield, CreditCard, Mail, Phone } from 'lucide-react';
-import PaymentMethodForm from './PaymentMethodForm';
+import PaymentMethodForm, { PaymentData } from './PaymentMethodForm';
 import AutoEnrollmentSystem from './AutoEnrollmentSystem';
 import { supabase } from '@/lib/supabase';
 
@@ -44,11 +44,11 @@ const EnhancedUpdatedOnboardingSteps: React.FC = () => {
     emailNotifications: true
   });
 
-  const handleInputChange = (field: string, value: any) => {
+  const handleInputChange = (field: string, value: string | boolean | string[]) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const handlePaymentSubmit = (paymentData: any) => {
+  const handlePaymentSubmit = (paymentData: PaymentData) => {
     setFormData(prev => ({ ...prev, paymentMethod: paymentData }));
   };
 

@@ -19,6 +19,7 @@ export interface CarrierData {
   coverage: string[];
   autoBookingEnabled: boolean;
   baseRate: number;
+  aiScore?: number;
 }
 
 export interface DispatchResult {
@@ -80,7 +81,7 @@ class DispatchService {
         ...carrier,
         aiScore: this.calculateAIScore(carrier, load)
       }))
-      .sort((a, b) => (b as any).aiScore - (a as any).aiScore);
+      .sort((a, b) => (b.aiScore ?? 0) - (a.aiScore ?? 0));
   }
 
   private calculateAIScore(carrier: CarrierData, load: LoadData): number {

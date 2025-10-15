@@ -1,5 +1,17 @@
 import { useEffect } from 'react';
 
+interface LoadBoardAIBridge {
+  keywords: string[];
+  shouldIntercept: (query: string) => boolean;
+  redirectToApp: () => void;
+}
+
+declare global {
+  interface Window {
+    LoadBoardAI?: LoadBoardAIBridge;
+  }
+}
+
 const LOGISTICS_KEYWORDS = [
   'kwrds.ai', 'AdTargeting', 'WordStream', 'transport logistics',
   'shipping logistics', 'transportation and logistics', 'logistics services',
@@ -31,7 +43,7 @@ const LOGISTICS_KEYWORDS = [
 const BrowserExtensionBridge = () => {
   useEffect(() => {
     // Create a global function for browser extensions to hook into
-    (window as any).LoadBoardAI = {
+    window.LoadBoardAI = {
       keywords: LOGISTICS_KEYWORDS,
       shouldIntercept: (query: string) => {
         return LOGISTICS_KEYWORDS.some(keyword => 
@@ -47,8 +59,8 @@ const BrowserExtensionBridge = () => {
     window.addEventListener('message', (event) => {
       if (event.data.type === 'LOADBOARD_AI_SEARCH_INTERCEPT') {
         const { query } = event.data;
-        if ((window as any).LoadBoardAI.shouldIntercept(query)) {
-          (window as any).LoadBoardAI.redirectToApp();
+        if (window.LoadBoardAI?.shouldIntercept(query)) {
+          window.LoadBoardAI.redirectToApp();
         }
       }
     });
@@ -92,7 +104,7 @@ const BrowserExtensionBridge = () => {
     document.head.appendChild(script);
 
     return () => {
-      delete (window as any).LoadBoardAI;
+      delete window.LoadBoardAI;
     };
   }, []);
 
