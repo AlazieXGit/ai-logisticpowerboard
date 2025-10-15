@@ -1,0 +1,8 @@
+[tool.pytest.ini_options]
+testpaths = ["."]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+# Exclude backend-fastapi tests as they require additional dependencies
+# Run them separately with: pytest backend-fastapi/test_cors.py
+addopts = "--ignore=backend-fastapi"

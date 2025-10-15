@@ -118,6 +118,7 @@ Automatic SSL via Let's Encrypt when using production deployment.
 - **[DEPLOYMENT.md](./DEPLOYMENT.md)** - Deployment guide for all platforms
 - **[SECURITY.md](./SECURITY.md)** - Security best practices
 - **[EAS_IMPLEMENTATION_SUMMARY.md](./EAS_IMPLEMENTATION_SUMMARY.md)** - Summary of EAS implementation
+- **[CONTRIBUTING.md](./CONTRIBUTING.md)** - Guidelines for contributing to the project
 
 ## 🚀 Deployment Status
 
@@ -129,7 +130,29 @@ Automatic SSL via Let's Encrypt when using production deployment.
 
 ## 📞 Support
 
-For deployment assistance or technical support, contact the development team.
+For deployment assistance or technical support:
+- 📖 Check the [Documentation](#-documentation)
+- 🤝 Read the [Contributing Guide](./CONTRIBUTING.md)
+- 🐛 [Report a Bug](https://github.com/AlazieXGit/ai-logisticpowerboard/issues/new?template=bug_report.yml)
+- 💡 [Request a Feature](https://github.com/AlazieXGit/ai-logisticpowerboard/issues/new?template=feature_request.yml)
+- 💬 [Start a Discussion](https://github.com/AlazieXGit/ai-logisticpowerboard/discussions)
+
+## 🤝 Contributing
+
+We welcome contributions! Please see our [Contributing Guide](./CONTRIBUTING.md) for details on:
+- Setting up your development environment
+- Code style guidelines
+- Submitting pull requests
+- Reporting issues
+
+## 📋 Issue Templates
+
+When creating issues, please use the appropriate template:
+- **[Bug Report](.github/ISSUE_TEMPLATE/bug_report.yml)** - Report bugs or errors
+- **[Feature Request](.github/ISSUE_TEMPLATE/feature_request.yml)** - Suggest new features
+- **[Documentation](.github/ISSUE_TEMPLATE/documentation.yml)** - Documentation improvements
+- **[Security](.github/ISSUE_TEMPLATE/security.yml)** - Security vulnerabilities
+- **[General](.github/ISSUE_TEMPLATE/general.yml)** - Other issues
 
 ---
 
